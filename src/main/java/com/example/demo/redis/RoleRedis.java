@@ -1,5 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.redis;
 
+import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,37 +16,37 @@ import java.util.concurrent.TimeUnit;
  * Created by newtranx_011 on 2018/3/28.
  */
 @Repository
-public class UserRedis {
+public class RoleRedis {
 
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    public void add(String key, Long time, User user) {
+    public void add(String key, Long time, Role role) {
         Gson gson = new Gson();
-        redisTemplate.opsForValue().set(key, gson.toJson(user), time, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key, gson.toJson(role), time, TimeUnit.MINUTES);
     }
 
-    public void add(String key, Long time, List<User> users) {
+    public void add(String key, Long time, List<Role> roles) {
         Gson gson = new Gson();
-        redisTemplate.opsForValue().set(key, gson.toJson(users), time, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(key, gson.toJson(roles), time, TimeUnit.MINUTES);
     }
 
-    public User get(String key) {
+    public Role get(String key) {
         Gson gson = new Gson();
-        User user = null;
-        String userJson = redisTemplate.opsForValue().get(key);
-        if(!StringUtils.isEmpty(userJson))
-            user = gson.fromJson(userJson, User.class);
-        return user;
+        Role role = null;
+        String roleJson = redisTemplate.opsForValue().get(key);
+        if(!StringUtils.isEmpty(roleJson))
+            role = gson.fromJson(roleJson, Role.class);
+        return role;
     }
 
-    public List<User> getList(String key) {
+    public List<Role> getList(String key) {
         Gson gson = new Gson();
-        List<User> users = null;
+        List<Role> roles = null;
         String listJson = redisTemplate.opsForValue().get(key);
         if(!StringUtils.isEmpty(listJson))
-            users = gson.fromJson(listJson, new TypeToken<List<User>>(){}.getType());
-        return users;
+            roles = gson.fromJson(listJson, new TypeToken<List<Role>>(){}.getType());
+        return roles;
     }
 
     public void delete(String key) {

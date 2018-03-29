@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
-import com.example.demo.service.UserRedis;
+import com.example.demo.redis.UserRedis;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,12 +40,11 @@ public class UserControllerTestRedis {
         roles.add(role);
 
         user.setRoles(roles);
+        userRedis.delete(this.getClass().getName()+":userBynaem:user"+user.getName());
+        userRedis.add(this.getClass().getName()+":userBynaem:user"+user.getName(), 10L, user);
 
-        userRedis.delete(this.getClass().getName()+":userBynaem:"+user.getName());
-        userRedis.add(this.getClass().getName()+":userBynaem:"+user.getName(), 10L, user);
-
-        User user1 = userRedis.get(this.getClass().getName()+":userByName:user");
         Gson gson = new Gson();
+        User user1 = userRedis.get(this.getClass().getName()+":userBynaem:user"+user.getName());
         String songUser = gson.toJson(user1);
         return songUser;
     }

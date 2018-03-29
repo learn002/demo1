@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.Dao.DepartmentRepository;
-import com.example.demo.Dao.RoleRepository;
-import com.example.demo.Dao.UserRepository;
+import com.example.demo.dao.DepartmentRepository;
+import com.example.demo.dao.RoleRepository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.entity.Department;
 import com.example.demo.entity.Role;
 import com.example.demo.entity.User;
