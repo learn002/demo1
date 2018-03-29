@@ -4,6 +4,7 @@ import com.example.demo.dao.RoleRepository;
 import com.example.demo.entity.Role;
 import com.example.demo.redis.RoleRedis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Example;
