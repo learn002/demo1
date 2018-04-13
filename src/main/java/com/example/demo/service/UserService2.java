@@ -5,14 +5,12 @@ import com.example.demo.entity.User;
 import com.example.demo.redis.UserRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 /**
  * Created by newtranx_011 on 2018/3/29.
  */
-@Service
 public class UserService2 {
     @Autowired
     private UserRepository userRepository;
@@ -21,12 +19,12 @@ public class UserService2 {
     private static final String keyHead = "mysql:get:user";
     private static final Long longTime = 30L;
 
-    public User findById(Long id) {
+    public Optional<User> findById(Long id) {
         User user = userRedis.get(keyHead + id);
         if(null == user) {
-            return userRepository.findOne(idToExample(id)).orElse(null);
+            return userRepository.findOne(idToExample(id));
         }
-        return user;
+        return Optional.empty();
     }
 
     public User create(User user) {
